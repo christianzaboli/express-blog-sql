@@ -78,15 +78,11 @@ function patch(req, res) {
 
 // delete
 function destroy(req, res) {
-    if (posts.find(post => post.id === parseInt(req.params.id))) {  // controllo se il post richiesto esiste
-        posts.splice(posts.indexOf(posts.find(post => post.id === parseInt(req.params.id))), 1);  // eliminito tale post nel caso esista
-        console.log(posts);
-        res.sendStatus(204)
-    } else {
-        res.status(404), // restituisco un json di not found nel caso opposto
-            res.json({ error: 'Not Found', message: 'Post not found' })
+    const { id } = req.params;
 
-    }
-}
+    sqlConnect.query('DELETE FROM posts WHERE id = ?', [id], 
+        (err) => {if (err) return res.status(500).json({ error: 'Failed to delete post'})});
+        res.sendStatus(204)
+};
 
 module.exports = { index, show, post, update, patch, destroy } 
