@@ -15,12 +15,20 @@ res.json(results);
 // show
 function show(req, res) {
     const id = req.params.id;
+    const postsSql = 'SELECT * FROM posts WHERE id = ?'
+    const sqlTags = `SELECT tags.label FROM tags WHERE id = ?`
 
-    sqlConnect.query('SELECT * FROM posts WHERE id = ?', [id], (err, results) => {
-            if (err) return res.status(500).json({ error: 'Database query error (error)'});
+    sqlConnect.query(postsSql, [id], (err, results) => {
+            if (err) return res.status(500).json({ error: 'Database query error (post)'});
             if (results.length === 0) return res.status(404).json({ error: 'Post not found'});
-            res.json(results[0])
+            const post = results[0];
+
+        sqlConnect.query(sqlTags, [id], (err, results) => {
+            if (err) return res.status(500).json({error: 'Database query error (tags)'});
+                post.tags = results[0];
+                res.json(post)
         });
+    });
 }
 
 // post
