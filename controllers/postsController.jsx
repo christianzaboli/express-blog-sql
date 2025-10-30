@@ -5,17 +5,12 @@ const sqlConnect = require('../data/db')
 
 // index
 function index(req, res) {
+    const sql = 'SELECT * FROM posts';
 
-    //random function per testare il middleware errorsHandler
-    // testMiddleware.get();
-
-    let filteredPosts = posts;
-
-    if (req.query.tags) { // condizione che si avvera solo nel caso compaia una query 'tags'
-        filteredPosts = filteredPosts.filter(post => post.tags.find(tag => tag === req.query.tags))
-    }
-    res.json(filteredPosts);
-}
+    sqlConnect.query(sql, (err, results) => {
+if (err) return res.status(500).json({ error: 'Database query failed' });
+res.json(results);
+})};
 
 // show
 function show(req, res) {
