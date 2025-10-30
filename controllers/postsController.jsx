@@ -1,10 +1,13 @@
 const posts = require('../data/postsList');
 
+// import connessione al database
+const sqlConnect = require('../data/db')
+
 // index
 function index(req, res) {
 
     //random function per testare il middleware errorsHandler
-    testMiddleware.get();
+    // testMiddleware.get();
 
     let filteredPosts = posts;
 

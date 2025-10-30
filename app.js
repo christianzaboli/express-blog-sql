@@ -12,7 +12,6 @@ app.use(express.json())
 // importo i middlewares
 const errorsHandler = require('./middlewares/errorsHandler')
 const notFound = require('./middlewares/notFound')
-
 const postsRouter = require('./routers/posts')
 
 // imposto l'indice del server
