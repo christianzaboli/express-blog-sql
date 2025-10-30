@@ -1,5 +1,5 @@
 {
-  "name": "express-blog-SQL",
+  "name": "express blog SQL",
   "version": "1.0.0",
   "description": "exercise involing the use of SQL to permanently modify the state of a database",
   "main": "app.js",
